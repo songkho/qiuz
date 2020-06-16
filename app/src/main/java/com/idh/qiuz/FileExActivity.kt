@@ -33,7 +33,13 @@ class FileExActivity : AppCompatActivity() {
 
                 TextUtils.isEmpty(text) -> {
                     Toast.makeText(applicationContext,"텍스트가 비어있습니다.", Toast.LENGTH_LONG).show()
-                }else -> {
+                }
+
+                !isExternalStorageWritable()->{
+                    Toast.makeText(applicationContext,"외부 저장장치가 없습니다.", Toast.LENGTH_LONG).show()
+                }
+
+                else -> {
                 saveToInnerStroage(text , filename)
             }
             }
