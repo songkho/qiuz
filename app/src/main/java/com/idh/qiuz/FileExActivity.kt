@@ -1,12 +1,17 @@
 package com.idh.qiuz
 
 import android.content.Context
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.text.TextUtils
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_file_ex.*
+import java.io.File
+import java.io.FileInputStream
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
 
 class FileExActivity : AppCompatActivity() {
 
@@ -23,7 +28,7 @@ class FileExActivity : AppCompatActivity() {
 
             val text = textField.text.toString()
 
-            when{
+            when{   
 
 
                 TextUtils.isEmpty(text) -> {
@@ -91,6 +96,53 @@ class FileExActivity : AppCompatActivity() {
         return fileInputStream.reader().readText()
 
     }
+
+
+    fun isExternalStorageWritable(): Boolean {
+
+        when{
+
+            Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED-> return true
+            else -> return false
+
+        }
+
+    }
+
+
+    fun getAppDataFileFromExternalStorage(filename: String):File {
+
+
+        val dir = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT ){
+
+            getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS)
+
+        }else{
+            File(Environment.getExternalStorageDirectory().absolutePath + "/Documents")
+        }
+
+        dir?.mkdirs()
+        return File("${dir.absolutePath}${File.separator}${filename}")
+
+
+    }
+
+
+    fun saveToExternalStrage(text: String, filename: String){
+
+        val fileOutputStream = FileOutputStream(getAppDataFileFromExternalStorage(filename))
+        fileOutputStream.write(text.toByteArray())
+        fileOutputStream.close()
+
+
+
+    }
+
+    fun loadFromExternalStorage(filename: String):String{
+        return FileInputStream(getAppDataFileFromExternalStorage(filename)).reader().readText()
+    }
+
+
 
 
 }
