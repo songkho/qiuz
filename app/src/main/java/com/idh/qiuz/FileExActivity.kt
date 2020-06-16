@@ -25,6 +25,7 @@ class FileExActivity : AppCompatActivity() {
 
         savebutton.setOnClickListener {
 
+            //20200616
 
             val text = textField.text.toString()
 
