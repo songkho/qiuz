@@ -52,13 +52,14 @@ class FileExActivity : AppCompatActivity() {
                 }
 
                 else -> {
+
                     saveToInnerStroage(text, filename)
                 }
             }
 
 
         }
-
+  
 
         loadbutton.setOnClickListener {
 
@@ -160,11 +161,11 @@ class FileExActivity : AppCompatActivity() {
 
 
     val MY_PERMISSION_REQUEST = 999
+
     fun checkPermission() {
         val permissionCheck = ContextCompat.checkSelfPermission(
             this@FileExActivity,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE      )
 
         when {
             permissionCheck != PackageManager.PERMISSION_GRANTED -> {
@@ -172,7 +173,7 @@ class FileExActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(
 
                     this@FileExActivity,
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
                     MY_PERMISSION_REQUEST
 
 
