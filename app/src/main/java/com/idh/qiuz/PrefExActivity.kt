@@ -29,6 +29,9 @@ class PrefExActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pref_ex)
 
 
+
+
+
         saveButton.setOnClickListener {
 
             preference.edit().putString(nameFiledKey, nameField.text.toString()).apply()
