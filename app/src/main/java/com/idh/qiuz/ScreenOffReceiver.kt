@@ -18,8 +18,17 @@ class ScreenOffReceiver : BroadcastReceiver(){
 
             intent?.action == Intent.ACTION_SCREEN_OFF-> {
 
-                Log.d("ScreenOffReceiver", "퀴즈잠금: 화면이 꺼졌습니다.")
-                Toast.makeText(context,"퀴즈잠금: 화면이 꺼졌습니다.", Toast.LENGTH_LONG).show()
+
+                //화면이 꺼지면
+
+                val intent = Intent(context, QuizLockerActivity::class.java)
+
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                context?.startActivity(intent)
+
             }
 
         }
