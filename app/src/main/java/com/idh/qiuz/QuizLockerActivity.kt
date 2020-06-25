@@ -12,13 +12,21 @@ import android.widget.SeekBar
 import kotlinx.android.synthetic.main.activity_quiz_locker.*
 import org.json.JSONArray
 import org.json.JSONObject
-import kotlin.random.Random
 
 @Suppress("DEPRECATION")
 class QuizLockerActivity : AppCompatActivity() {
 
 
     var quiz : JSONObject? = null
+
+
+    //정답횟수 저장
+
+    val wrongAnswerPref by lazy { getSharedPreferences("wrongAnswer", Context.MODE_PRIVATE) }
+
+    val correctAnswerPref by lazy { getSharedPreferences("correctAnswer", Context.MODE_PRIVATE) }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +61,14 @@ class QuizLockerActivity : AppCompatActivity() {
         quizLabel.text = quiz?.getString("question")
         choice1.text = quiz?.getString("choice1")
         choice2.text = quiz?.getString("choice2")
+
+
+        //정답 횟수 오답횟수를 보여준다.
+
+        val id = quiz?.getInt("id").toString() ?: ""
+        correctCountLabel.text = "정ㄷ바횟수:${correctAnswerPref.getInt(id,0)}"
+
+        wrongCountLabel.text = "오답횟수:${wrongAnswerPref.getInt(id,0)}"
 
 
 
